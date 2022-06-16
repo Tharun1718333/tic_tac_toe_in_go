@@ -22,10 +22,10 @@ func (g *Game) TakeAValidMove() {
 	var i, j int
 	fmt.Scan(&i, &j)
 	for !g.Board.ValidateTheMove(i, j) {
-		fmt.Println("Please enter a vald move")
+		fmt.Println("Please enter a valid move")
 		fmt.Scan(&i, &j)
 	}
-	g.Board.ApplyTheMove(i, j, g.PlayerController.Curr.Symbol)
+	g.Board.ApplyTheMove(i, j, g.PlayerController.Curr.getSymbol())
 }
 
 //return enum or constant
@@ -69,7 +69,7 @@ func (g Game) DetermineState() string {
 //use enum/const for won
 func (g Game) DisplayResults() {
 	if g.State == Won {
-		fmt.Println(g.PlayerController.Curr.Name, "  Wins")
+		fmt.Println(g.PlayerController.Curr.getName(), "  Wins")
 	} else {
 		fmt.Println("Game drawn")
 	}

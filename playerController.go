@@ -1,11 +1,11 @@
 package main
 
 type PlayerController struct {
-	PlayerCollection []Player
-	Curr             Player
+	PlayerCollection []Iplayer
+	Curr             Iplayer
 }
 
-func (c PlayerController) IteratePlayer() Player {
+func (c PlayerController) IteratePlayer() Iplayer {
 	var i int
 	for ; i < len(c.PlayerCollection); i++ {
 		if c.PlayerCollection[i] == c.Curr {
