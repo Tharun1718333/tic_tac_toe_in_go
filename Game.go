@@ -19,13 +19,13 @@ type Game struct {
 }
 
 func (g *Game) TakeAValidMove() {
-	var i, j int
-	fmt.Scan(&i, &j)
-	for !g.Board.ValidateTheMove(i, j) {
+	var move Move
+	move = g.PlayerController.Curr.makeamove()
+	for !g.Board.ValidateTheMove(move.I, move.J) {
 		fmt.Println("Please enter a valid move")
-		fmt.Scan(&i, &j)
+		move = g.PlayerController.Curr.makeamove()
 	}
-	g.Board.ApplyTheMove(i, j, g.PlayerController.Curr.getSymbol())
+	g.Board.ApplyTheMove(move.I, move.J, g.PlayerController.Curr.getSymbol())
 }
 
 //return enum or constant
@@ -76,8 +76,8 @@ func (g Game) DisplayResults() {
 }
 func (g Game) RunGame() {
 	for g.State == Ongoing {
-		g.TakeAValidMove()
 		g.PlayerController.Curr = g.PlayerController.IteratePlayer()
+		g.TakeAValidMove()
 		g.Board.PrintBoard()
 		g.State = g.DetermineState()
 	}
