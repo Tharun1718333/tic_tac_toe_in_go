@@ -28,12 +28,15 @@ func (p AiPlayer) getSymbol() byte {
 func (p AiPlayer) makeamove(b Board) Move {
 	move := p.confirmedNextMove(b)
 	if move.I != 3 {
+		//fmt.Println("confimed move")
 		return move
 	}
 	move = p.optimalMove(b)
 	if move.I != 3 {
+		//fmt.Println("optimal move")
 		return move
 	}
+	//fmt.Println("random move")
 	move = p.randomMove(b)
 	return move
 }
