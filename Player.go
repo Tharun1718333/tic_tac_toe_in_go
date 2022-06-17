@@ -5,7 +5,7 @@ import (
 )
 
 type Iplayer interface {
-	makeamove() Move
+	makeamove(b Board) Move
 	getSymbol() byte
 	getName() string
 }
@@ -14,7 +14,7 @@ type Player struct {
 	Symbol byte
 }
 
-func (p Player) makeamove() Move {
+func (p Player) makeamove(b Board) Move {
 	var i, j int
 	fmt.Scan(&i, &j)
 	move := Move{i, j}

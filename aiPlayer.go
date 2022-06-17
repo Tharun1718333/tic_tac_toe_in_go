@@ -1,5 +1,16 @@
 package main
 
+//plan
+/*
+are you winning() apply the winning move
+is the opponent winning() block out the winning move
+see if you can gain on an existing move() apply the gaining move
+apply the move with a preference order()
+
+the top two functions can be combined into 1
+*/
+// 158 = 2 'O' and 176 = 2 'X'
+// check for 8 cases of win each with 3 cases of Immediate win
 import (
 	"math/rand"
 )
@@ -8,18 +19,24 @@ type AiPlayer struct {
 	Player
 }
 
-//plan
-/*
-are you winning() apply the winning move
-is the opponent winning() block out the winning move
-see if you can gain on an existing move() apply the gaining move
-apply the move with a preference order()
-
-
-the top two functions can be combined into 1
-*/
-// 158 = 2 'O' and 176 = 2 'X'
-// check for 8 cases of win each with 3 cases of Immediate win
+func (p AiPlayer) getName() string {
+	return p.Name
+}
+func (p AiPlayer) getSymbol() byte {
+	return p.Symbol
+}
+func (p AiPlayer) makeamove(b Board) Move {
+	move := p.confirmedNextMove(b)
+	if move.I != 3 {
+		return move
+	}
+	move = p.optimalMove(b)
+	if move.I != 3 {
+		return move
+	}
+	move = p.randomMove(b)
+	return move
+}
 func (p AiPlayer) confirmedNextMove(b Board) Move {
 	//Horizantl cases
 	sumOfThreeBlocks := b.board[0][0] + b.board[0][1] + b.board[0][2]
@@ -221,9 +238,14 @@ func (p AiPlayer) optimalMove(b Board) Move {
 	}
 	return Move{3, 3}
 }
-func (p AiPlayer) randomMove() Move {
-	var i, j int
-	i = rand.Intn(3)
-	j = rand.Intn(3)
-	return Move{i, j}
+func (p AiPlayer) randomMove(b Board) Move {
+	var allPossiblePositions []Move
+	for l := 0; l < 3; l++ {
+		for m := 0; m < 3; m++ {
+			if b.board[l][m] == 0 {
+				allPossiblePositions = append(allPossiblePositions, Move{l, m})
+			}
+		}
+	}
+	return allPossiblePositions[rand.Intn(len(allPossiblePositions))]
 }

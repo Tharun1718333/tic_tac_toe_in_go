@@ -20,10 +20,10 @@ type Game struct {
 
 func (g *Game) TakeAValidMove() {
 	var move Move
-	move = g.PlayerController.Curr.makeamove()
+	move = g.PlayerController.Curr.makeamove(g.Board)
 	for !g.Board.ValidateTheMove(move.I, move.J) {
 		fmt.Println("Please enter a valid move")
-		move = g.PlayerController.Curr.makeamove()
+		move = g.PlayerController.Curr.makeamove(g.Board)
 	}
 	g.Board.ApplyTheMove(move.I, move.J, g.PlayerController.Curr.getSymbol())
 }

@@ -8,12 +8,16 @@ type RandomPlayer struct {
 	Player
 }
 
-func (p RandomPlayer) makeamove() Move {
-	var i, j int
-	i = rand.Intn(3)
-	j = rand.Intn(3)
-	move := Move{i, j}
-	return move
+func (p RandomPlayer) makeamove(b Board) Move {
+	var allPossiblePositions []Move
+	for l := 0; l < 3; l++ {
+		for m := 0; m < 3; m++ {
+			if b.board[l][m] == 0 {
+				allPossiblePositions = append(allPossiblePositions, Move{l, m})
+			}
+		}
+	}
+	return allPossiblePositions[rand.Intn(len(allPossiblePositions))]
 }
 func (p RandomPlayer) getSymbol() byte {
 	return p.Symbol
